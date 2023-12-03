@@ -50,7 +50,7 @@ defmodule AdventOfCode.Day02 do
   end
 
   defp valid_pull?(pull) do
-        count_color(pull, "red") <= 12 and count_color(pull, "green") <= 13 and
-          count_color(pull, "blue") <= 14
+    count_color(pull, "red") <= 12 and count_color(pull, "green") <= 13 and
+      count_color(pull, "blue") <= 14
   end
 end
