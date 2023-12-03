@@ -22,11 +22,22 @@ defmodule AdventOfCode.Day03Test do
     assert result === 4361
   end
 
-  @tag :skip
   test "part2" do
-    input = nil
+    input = """
+    467..114..
+    ...*......
+    ..35..633.
+    ......#...
+    617*......
+    .....+.58.
+    ..592.....
+    ......755.
+    ...$.*....
+    .664.598..
+    """
+
     result = part2(input)
 
-    assert result
+    assert result == 467_835
   end
 end
