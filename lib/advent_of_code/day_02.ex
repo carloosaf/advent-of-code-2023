@@ -8,8 +8,8 @@ defmodule AdventOfCode.Day02 do
 
       filtered =
         Enum.filter(tokens, fn token ->
-          check_color(token, 12, "red") and check_color(token, 13, "green") and
-            check_color(token, 14, "blue")
+          count_color(token, "red") <= 12 and count_color(token, "green") <= 13 and
+            count_color(token, "blue") <= 14
         end)
 
       length(filtered) == length(tokens)
@@ -23,13 +23,30 @@ defmodule AdventOfCode.Day02 do
     |> Enum.sum()
   end
 
-  def part2(_args) do
+  def part2(args) do
+    args
+    |> String.split("\n", trim: true)
+    |> Enum.map(fn line ->
+      [_, cubes] = String.split(line, ":", trim: true)
+      cubes
+    end)
+    |> Enum.map(&String.split(&1, ";", trim: true))
+    |> Enum.map(fn tokens -> 
+       Enum.reduce(tokens, {-1, -1, -1}, fn token, {red, green, blue} ->
+        {max(red, count_color(token, "red")), max(green, count_color(token, "green")),
+         max(blue, count_color(token, "blue"))}
+      end)
+    end)
+    |> Enum.map(fn {red, green, blue} -> red*green*blue end)
+    |> Enum.sum()
   end
 
-  defp check_color(string, max, color) do
+  defp count_color(string, color) do
     case Regex.scan(~r/(\d+) #{color}/, string) do
-      [[_, x]] -> String.to_integer(x) <= max
-      [] -> true
+      [[_, x]] ->
+        String.to_integer(x)
+      [] ->
+        -1
     end
   end
 end
