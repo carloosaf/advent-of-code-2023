@@ -65,7 +65,6 @@ defmodule AdventOfCode.Day03 do
       |> Enum.sum()
     end)
     |> Enum.sum()
-    |> dbg()
   end
 
   defp has_symbol?(slice) do
